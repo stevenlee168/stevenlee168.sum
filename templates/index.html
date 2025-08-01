@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Máy tính a + b</title>
+</head>
+<body>
+  <h2>Nhập hai số để tính</h2>
+  <input id="a" type="number" placeholder="a">
+  <input id="b" type="number" placeholder="b">
+  <button onclick="send()">Tính</button>
+  <p>Kết quả: <span id="result"></span></p>
+
+  <script>
+    async function send() {
+      const a = Number(document.getElementById('a').value);
+      const b = Number(document.getElementById('b').value);
+      const res = await fetch('/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ a, b })
+      });
+      const data = await res.json();
+      document.getElementById('result').textContent = data.result;
+    }
+  </script>
+</body>
+</html>
